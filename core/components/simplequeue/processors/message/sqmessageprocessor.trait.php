@@ -51,6 +51,7 @@ trait sqMessageProcessorTrait {
     {
         $this->prepareLog($this->object, simpleQueue::SQ_LOG_AFTER);
         $this->addLog($this->object->get('id'));
+        return parent::afterSave();
     }
 
     /**
@@ -77,6 +78,10 @@ trait sqMessageProcessorTrait {
      */
     public function addLog($id)
     {
+        if (!$this->modx->getOption('simplequeue_log')) {
+            return;
+        }
+
         $closed = false;
         $diff = array();
         foreach ($this->stateAfter as $k => $v) {

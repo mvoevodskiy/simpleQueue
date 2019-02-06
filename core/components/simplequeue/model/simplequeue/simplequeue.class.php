@@ -137,9 +137,10 @@ class simpleQueue
         }
         $result = array();
         foreach ($ids as $id) {
+            /** @var sqMessage $msg */
             if ($msg = $this->modx->getObject('sqMessage', array('id' => $id, 'service' => $service))) {
                 $msg->set('properties', array_merge($msg->get('properties'), $properties));
-                $msg->set($status);
+                $msg->set('status', $status);
                 $msg->set('processed', true);
                 $result[$id] = $msg->save();
             } else {

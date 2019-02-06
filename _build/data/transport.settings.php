@@ -3,11 +3,11 @@
 $settings = array();
 
 $tmp = array(
-//	'some_setting' => array(
-//		'xtype' => 'combo-boolean',
-//		'value' => true,
-//		'area' => 'simplequeue_main',
-//	),
+	'log' => array(
+		'xtype' => 'combo-boolean',
+		'value' => false,
+		'area' => 'simplequeue_main',
+	),
 
 );
 
