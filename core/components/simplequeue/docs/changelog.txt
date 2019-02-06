@@ -1,5 +1,10 @@
 Changelog for simpleQueue.
 
-0.0.1-alpha
+0.1.0-pl
 ==============
-- Blank package
+- Added logger switch in system settings
+- Added indexes to sqMessage object
+
+0.1.0-beta
+==============
+- First public version

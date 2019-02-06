@@ -34,4 +34,5 @@ If you want simple connect service, run once this code:
 
 ## Copyright Information
 
+Author: @mvoevodskiy  
 simpleQueue is distributed as LGPL.
