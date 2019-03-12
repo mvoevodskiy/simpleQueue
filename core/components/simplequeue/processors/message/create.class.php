@@ -1,6 +1,9 @@
 <?php
 
 require_once 'sqmessageprocessor.trait.php';
+if (class_exists('sqMessageCreateProcessor')) {
+    return 'sqMessageCreateProcessor';
+}
 /**
  * Create an Item
  */
