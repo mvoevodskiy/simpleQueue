@@ -1,3 +1,7 @@
 <?php
-require_once (dirname(dirname(__FILE__)) . '/sqlog.class.php');
-class sqLog_mysql extends sqLog {}
+
+require_once(dirname(__FILE__, 2) . '/sqlog.class.php');
+
+class sqLog_mysql extends sqLog
+{
+}

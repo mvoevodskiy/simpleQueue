@@ -1,2 +1,5 @@
 <?php
-class sqMessage extends xPDOSimpleObject {}
+
+class sqMessage extends xPDOSimpleObject
+{
+}

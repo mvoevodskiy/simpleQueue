@@ -1,3 +1,7 @@
 <?php
-require_once (dirname(dirname(__FILE__)) . '/sqmessage.class.php');
-class sqMessage_mysql extends sqMessage {}
+
+require_once(dirname(__FILE__, 2) . '/sqmessage.class.php');
+
+class sqMessage_mysql extends sqMessage
+{
+}

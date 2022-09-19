@@ -15,7 +15,6 @@ simpleQueue.grid.Items = function (config) {
 		listeners: {
 			rowDblClick: function (grid, rowIndex, e) {
 				var row = grid.store.getAt(rowIndex);
-				// this.messageUpdate(grid, e, row);
 			}
 		},
 		viewConfig: {
@@ -54,24 +53,6 @@ Ext.extend(simpleQueue.grid.Items, MODx.grid.Grid, {
 
 		this.addContextMenuItem(menu);
 	},
-
-	createItem: function (btn, e) {
-		var w = MODx.load({
-			xtype: 'simplequeue-item-window-create',
-			id: Ext.id(),
-			listeners: {
-				success: {
-					fn: function () {
-						this.refresh();
-					}, scope: this
-				}
-			}
-		});
-		w.reset();
-		w.setValues({active: true});
-		w.show(e.target);
-	},
-
 	messageUpdate: function (btn, e, row) {
 		if (typeof(row) != 'undefined') {
 			this.menu.record = row.data;

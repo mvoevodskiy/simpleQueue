@@ -1,5 +1,10 @@
 Changelog for simpleQueue.
 
+1.0.0-pl
+Stable version
+- PSR-12
+- min version PHP 7.0
+
 0.1.1-pl
 ==============
 - Fixed creaate table for messages

@@ -1,2 +1,5 @@
 <?php
-class sqLog extends xPDOSimpleObject {}
+
+class sqLog extends xPDOSimpleObject
+{
+}
