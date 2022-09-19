@@ -16,15 +16,15 @@ class simpleQueue
 
     /* @var modX $modx */
     public $modx;
-
+    public $config;
 
     /**
      * @param modX $modx
      * @param array $config
      */
-    function __construct(modX &$modx, array $config = array())
+    function __construct(modX $modx, array $config = [])
     {
-        $this->modx =& $modx;
+        $this->modx = $modx;
 
         $corePath = $this->modx->getOption('simplequeue_core_path', $config,
             $this->modx->getOption('core_path') . 'components/simplequeue/');
@@ -32,25 +32,20 @@ class simpleQueue
             $this->modx->getOption('assets_url') . 'components/simplequeue/');
         $connectorUrl = $assetsUrl . 'connector.php';
 
-        $this->config = array_merge(array(
+        $this->config = array_merge([
             'assetsUrl' => $assetsUrl,
             'cssUrl' => $assetsUrl . 'css/',
             'jsUrl' => $assetsUrl . 'js/',
-            'imagesUrl' => $assetsUrl . 'images/',
             'connectorUrl' => $connectorUrl,
             'corePath' => $corePath,
             'modelPath' => $corePath . 'model/',
-            'chunksPath' => $corePath . 'elements/chunks/',
             'templatesPath' => $corePath . 'elements/templates/',
-            'chunkSuffix' => '.chunk.tpl',
-            'snippetsPath' => $corePath . 'elements/snippets/',
             'processorsPath' => $corePath . 'processors/'
-        ), $config);
+        ], $config);
 
         $this->modx->addPackage('simplequeue', $this->config['modelPath']);
         $this->modx->lexicon->load('simplequeue:default');
     }
-
 
     /**
      * @param string $service
@@ -58,7 +53,7 @@ class simpleQueue
      * @param array $data
      * @return bool
      */
-    public function addMessage($service = '', $subject = '', $data = array())
+    public function addMessage($service = '', $subject = '', $data = [])
     {
         $result = false;
 
@@ -79,23 +74,22 @@ class simpleQueue
         }
 
         return $result;
-
     }
 
     /**
-     * @deprecated
-     *
      * @param string $service
      * @param string $subject
      * @param bool|false $processed
      * @param array|xPDOQuery $criteria
      * @return array
+     * @deprecated
+     *
      */
-    public function getMessages($service, $subject = '', $processed = false, $criteria = array())
+    public function getMessages($service, $subject = '', $processed = false, $criteria = [])
     {
-        $output = array();
+        $output = [];
 
-        $criteriaArray = array('service' => $service);
+        $criteriaArray = ['service' => $service];
         if (!empty($subject)) {
             $criteriaArray['subject'] = $subject;
         }
@@ -112,10 +106,9 @@ class simpleQueue
             $q = $this->modx->newQuery('sqMessage');
         }
 
-        $q->select(array('sqMessage.*'));
+        $q->select(['sqMessage.*']);
         $q->prepare();
         $q->stmt->execute();
-
 
         /** @var array $messages */
         $messages = $q->stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -130,15 +123,15 @@ class simpleQueue
      * @param array|int $ids
      * @return array
      */
-    public function closeMessages($service, $ids = 0, $status = 0, $properties = array())
+    public function closeMessages($service, $ids = 0, $status = 0, $properties = [])
     {
         if (!is_array($ids)) {
-            $ids = array($ids);
+            $ids = [$ids];
         }
-        $result = array();
+        $result = [];
         foreach ($ids as $id) {
             /** @var sqMessage $msg */
-            if ($msg = $this->modx->getObject('sqMessage', array('id' => $id, 'service' => $service))) {
+            if ($msg = $this->modx->getObject('sqMessage', ['id' => $id, 'service' => $service])) {
                 $msg->set('properties', array_merge($msg->get('properties'), $properties));
                 $msg->set('status', $status);
                 $msg->set('processed', true);
@@ -159,12 +152,12 @@ class simpleQueue
     public function addLog($message_id, $action = simpleQueue::SQ_CREATE, $entry = '')
     {
         $result = false;
-        $data = array(
+        $data = [
             'message_id' => $message_id,
             'user_id' => $this->modx->user->id,
             'operation' => $action,
             'entry' => $entry
-        );
+        ];
 
         if ($log = $this->modx->newObject('sqLog', $data)) {
             $result = $log->save();
@@ -172,5 +165,4 @@ class simpleQueue
 
         return $result;
     }
-
 }

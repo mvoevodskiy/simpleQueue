@@ -1,9 +1,9 @@
 <?php
 
-$xpdo_meta_map = array (
-  'xPDOSimpleObject' => 
-  array (
-    0 => 'sqMessage',
-    1 => 'sqLog',
-  ),
-);
+$xpdo_meta_map = [
+    'xPDOSimpleObject' =>
+        [
+            'sqMessage',
+            'sqLog',
+        ],
+];

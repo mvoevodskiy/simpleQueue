@@ -1,9 +1,11 @@
 <?php
 
+/** @var xPDOTransport $object */
 if ($object->xpdo) {
     /** @var modX $modx */
     $modx =& $object->xpdo;
 
+    /** @var array $options */
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
         case xPDOTransport::ACTION_UPGRADE:
@@ -11,7 +13,7 @@ if ($object->xpdo) {
             $modx->addPackage('simplequeue', $modelPath);
 
             $manager = $modx->getManager();
-            $objects = array();
+            $objects = [];
             $schemaFile = MODX_CORE_PATH . 'components/simplequeue/model/schema/simplequeue.mysql.schema.xml';
             if (is_file($schemaFile)) {
                 $schema = new SimpleXMLElement($schemaFile, 0, true);
@@ -24,7 +26,7 @@ if ($object->xpdo) {
             }
             foreach ($objects as $tmp) {
                 $table = $modx->getTableName($tmp);
-                $sql = "SHOW TABLES LIKE '".trim($table,'`')."'";
+                $sql = "SHOW TABLES LIKE '" . trim($table, '`') . "'";
                 $stmt = $modx->prepare($sql);
                 $newTable = true;
                 if ($stmt->execute() && $stmt->fetchAll()) {
@@ -36,7 +38,7 @@ if ($object->xpdo) {
                 } else {
                     // If the table exists
                     // 1. Operate with tables
-                    $tableFields = array();
+                    $tableFields = [];
                     $c = $modx->prepare("SHOW COLUMNS IN {$modx->getTableName($tmp)}");
                     $c->execute();
                     while ($cl = $c->fetch(PDO::FETCH_ASSOC)) {
@@ -54,7 +56,7 @@ if ($object->xpdo) {
                         $manager->removeField($tmp, $field);
                     }
                     // 2. Operate with indexes
-                    $indexes = array();
+                    $indexes = [];
                     $c = $modx->prepare("SHOW INDEX FROM {$modx->getTableName($tmp)}");
                     $c->execute();
                     while ($cl = $c->fetch(PDO::FETCH_ASSOC)) {
