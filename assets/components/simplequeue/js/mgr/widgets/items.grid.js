@@ -162,28 +162,28 @@ Ext.extend(simpleQueue.grid.Items, MODx.grid.Grid, {
             header: _('simplequeue_message_createdon'),
             dataIndex: 'createdon',
             sortable: false,
-            width: 250,
+            width: 100,
         }, {
             header: _('simplequeue_message_finishedon'),
             dataIndex: 'finishedon',
             sortable: false,
-            width: 250,
+            width: 100,
         }, {
             header: _('simplequeue_message_createdby'),
             dataIndex: 'createdby',
             sortable: false,
-            width: 250,
+            width: 50,
         },{
             header: _('simplequeue_message_processing'),
             dataIndex: 'processing',
             sortable: false,
-            width: 250,
+            width: 50,
         }, {
             header: _('simplequeue_message_processed'),
             dataIndex: 'processed',
             renderer: simpleQueue.utils.renderBoolean,
             sortable: true,
-            width: 100,
+            width: 50,
         }, {
             header: _('simplequeue_grid_actions'),
             dataIndex: 'actions',
