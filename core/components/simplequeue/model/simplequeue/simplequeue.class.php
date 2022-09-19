@@ -22,7 +22,7 @@ class simpleQueue
      * @param modX $modx
      * @param array $config
      */
-    function __construct(modX $modx, array $config = [])
+    public function __construct(modX $modx, array $config = [])
     {
         $this->modx = $modx;
 
@@ -61,9 +61,9 @@ class simpleQueue
             $data['service'] = $service;
         }
         if (!empty($subject)) {
-            $data['subject'] = $$subject;
+            $data['subject'] = $subject;
         }
-        if (empty($data['service']) or empty($data['service'])) {
+        if (empty($data['service']) || empty($data['service'])) {
             return $result;
         }
 

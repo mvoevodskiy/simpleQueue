@@ -5,13 +5,19 @@ $xpdo_meta_map['sqMessage'] = [
     'version' => '1.1',
     'table' => 'simplequeue_messages',
     'extends' => 'xPDOSimpleObject',
+    'tableMeta' =>
+        [
+            'engine' => 'MyISAM',
+        ],
     'fields' =>
         [
             'service' => '',
             'action' => '',
             'subject' => '',
             'createdon' => 'CURRENT_TIMESTAMP',
-            'createdby' => 'CURRENT_TIMESTAMP',
+            'finishedon' => '',
+            'createdby' => 0,
+            'processing' => 0,
             'processed' => 0,
             'status' => 0,
             'properties' => '',
@@ -37,7 +43,7 @@ $xpdo_meta_map['sqMessage'] = [
             'subject' =>
                 [
                     'dbtype' => 'varchar',
-                    'precision' => '191',
+                    'precision' => '255',
                     'phptype' => 'string',
                     'null' => false,
                     'default' => '',
@@ -49,12 +55,30 @@ $xpdo_meta_map['sqMessage'] = [
                     'null' => false,
                     'default' => 'CURRENT_TIMESTAMP',
                 ],
-            'createdby' =>
+            'finishedon' =>
                 [
                     'dbtype' => 'timestamp',
                     'phptype' => 'timestamp',
+                    'null' => true,
+                    'default' => null,
+                ],
+            'createdby' =>
+                [
+                    'dbtype' => 'int',
+                    'precision' => '10',
+                    'attributes' => 'unsigned',
+                    'phptype' => 'integer',
                     'null' => false,
-                    'default' => 'CURRENT_TIMESTAMP',
+                    'default' => 0,
+                ],
+            'processing' =>
+                [
+                    'dbtype' => 'int',
+                    'precision' => '1',
+                    'attributes' => 'unsigned',
+                    'phptype' => 'boolean',
+                    'null' => false,
+                    'default' => 0,
                 ],
             'processed' =>
                 [
@@ -96,6 +120,16 @@ $xpdo_meta_map['sqMessage'] = [
                                     'collation' => 'A',
                                     'null' => false,
                                 ],
+                        ],
+                ],
+            'subject' =>
+                [
+                    'alias' => 'subject',
+                    'primary' => false,
+                    'unique' => false,
+                    'type' => 'BTREE',
+                    'columns' =>
+                        [
                             'subject' =>
                                 [
                                     'length' => '',
@@ -113,6 +147,38 @@ $xpdo_meta_map['sqMessage'] = [
                     'columns' =>
                         [
                             'createdon' =>
+                                [
+                                    'length' => '',
+                                    'collation' => 'A',
+                                    'null' => false,
+                                ],
+                        ],
+                ],
+            'processed' =>
+                [
+                    'alias' => 'processed',
+                    'primary' => false,
+                    'unique' => false,
+                    'type' => 'BTREE',
+                    'columns' =>
+                        [
+                            'processed' =>
+                                [
+                                    'length' => '',
+                                    'collation' => 'A',
+                                    'null' => false,
+                                ],
+                        ],
+                ],
+            'status' =>
+                [
+                    'alias' => 'status',
+                    'primary' => false,
+                    'unique' => false,
+                    'type' => 'BTREE',
+                    'columns' =>
+                        [
+                            'status' =>
                                 [
                                     'length' => '',
                                     'collation' => 'A',
