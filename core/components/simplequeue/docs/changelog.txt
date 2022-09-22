@@ -1,6 +1,13 @@
 Changelog for simpleQueue.
 
+1.1.0-pl
+==============
+- Added new fields
+sqMessage.finishedon
+sqMessage.processing
+
 1.0.0-pl
+==============
 Stable version
 - PSR-12
 - min version PHP 7.0

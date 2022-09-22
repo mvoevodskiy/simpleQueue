@@ -7,14 +7,15 @@ $_lang['simplequeue_menu_desc'] = 'Управление очередью зад�
 $_lang['simplequeue_intro_msg'] = 'Вы можете выделять сразу несколько задач при помощи Shift или Ctrl.';
 
 $_lang['simplequeue_items'] = 'Задачи';
-$_lang['simplequeue_messages'] = 'Задачи';
 $_lang['simplequeue_message_id'] = 'Id';
 $_lang['simplequeue_message_service'] = 'Сервис';
 $_lang['simplequeue_message_action'] = 'Действие';
 $_lang['simplequeue_message_subject'] = 'Тема';
 $_lang['simplequeue_message_createdon'] = 'Время создания';
+$_lang['simplequeue_message_finishedon'] = 'Время завершения';
 $_lang['simplequeue_message_createdby'] = 'Автор';
 $_lang['simplequeue_message_processed'] = 'Выполнено';
+$_lang['simplequeue_message_processing'] = 'Выполняется';
 
 $_lang['simplequeue_message_enable'] = 'Завершить задачу';
 $_lang['simplequeue_messages_enable'] = 'Завершить задачи';
