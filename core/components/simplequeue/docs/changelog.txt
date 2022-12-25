@@ -1,5 +1,10 @@
 Changelog for simpleQueue.
 
+1.1.2-pl
+==============
+- Update processors
+
+
 1.1.1-pl
 ==============
 - Fix default value for finishedon

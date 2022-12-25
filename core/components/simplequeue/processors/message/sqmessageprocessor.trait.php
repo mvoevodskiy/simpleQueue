@@ -6,10 +6,11 @@
  * Time: 10:29
  */
 
-trait sqMessageProcessorTrait {
+trait sqMessageProcessorTrait
+{
 
-    public $stateBefore = array();
-    public $stateAfter = array();
+    public $stateBefore = [];
+    public $stateAfter = [];
     /* @var modX $modx */
     public $modx;
     /** @var simpleQueue */
@@ -33,8 +34,13 @@ trait sqMessageProcessorTrait {
         if (!$this->sq = $this->modx->getService(
             'simplequeue',
             'simpleQueue',
-            $this->modx->getOption('simplequeue_core_path', null, $this->modx->getOption('core_path') . 'components/simplequeue/') . 'model/simplequeue/',
-            array())
+            $this->modx->getOption(
+                'simplequeue_core_path',
+                null,
+                $this->modx->getOption('core_path') . 'components/simplequeue/'
+            ) . 'model/simplequeue/',
+            []
+        )
         ) {
             return 'Could not load simpleQueue class!';
         }
@@ -64,11 +70,11 @@ trait sqMessageProcessorTrait {
             $msg = $msg->toArray();
         }
         $var = 'state' . ucfirst($place);
-        $this->$var = array(
+        $this->$var = [
             'processed' => $msg['processed'],
             'status' => $msg['status'],
             'properties' => $msg['properties'],
-        );
+        ];
         return $this->$var;
     }
 
@@ -83,7 +89,7 @@ trait sqMessageProcessorTrait {
         }
 
         $closed = false;
-        $diff = array();
+        $diff = [];
         foreach ($this->stateAfter as $k => $v) {
             if (!isset($this->stateBefore[$k]) or $v != $this->stateBefore[$k]) {
                 if ($k == 'processed' and $v == 1) {

@@ -5,47 +5,53 @@ require_once 'sqmessageprocessor.trait.php';
 /**
  * Close the Message(s)
  */
-class sqMessageCloseProcessor extends modObjectProcessor {
+class sqMessageCloseProcessor extends modObjectProcessor
+{
     use sqMessageProcessorTrait;
 
-	public $objectType = 'message';
-	public $classKey = 'sqMessage';
-	public $languageTopics = array('simplequeue');
-	//public $permission = 'save';
+    public $objectType = 'message';
+    public $classKey = 'sqMessage';
+    public $languageTopics = ['simplequeue'];
+    //public $permission = 'save';
     public $action = simpleQueue::SQ_CLOSE;
 
-	/**
-	 * @return array|string
-	 */
-	public function process() {
-	    if (!$this->checkPermissions()) {
-			return $this->failure($this->modx->lexicon('access_denied'));
-		}
-
-		$ids = $this->modx->fromJSON($this->getProperty('ids'));
-		if (empty($ids)) {
-		    $ids = array($this->getProperty('id'));
+    /**
+     * @return array|string
+     */
+    public function process()
+    {
+        if (!$this->checkPermissions()) {
+            return $this->failure($this->modx->lexicon('access_denied'));
         }
-		if (empty($ids)) {
-			return $this->failure($this->modx->lexicon('simplequeue_sqmessage_err_ns'));
-		}
 
-		foreach ($ids as $id) {
-			/** @var sqMessage $object */
-			if (!$object = $this->modx->getObject($this->classKey, $id)) {
-				return $this->failure($this->modx->lexicon('simplequeue_sqmessage_err_nf'));
-			}
+        $ids = $this->modx->fromJSON($this->getProperty('ids'));
+        if (empty($ids)) {
+            $ids = [$this->getProperty('id')];
+        }
+        if (empty($ids)) {
+            return $this->failure($this->modx->lexicon('simplequeue_sqmessage_err_ns'));
+        }
 
-			$object->set('processed', true);
-			if ($object->save()) {
-			    $this->stateAfter['processed'] = true;
-                $this->addLog($object->id);
+        foreach ($ids as $id) {
+            /** @var sqMessage $object */
+            if (!$object = $this->modx->getObject($this->classKey, $id)) {
+                return $this->failure($this->modx->lexicon('simplequeue_sqmessage_err_nf'));
             }
-		}
 
-		return $this->success();
-	}
+            $time = time();
+            $object->set('processed', true);
+            $object->set('processing', false);
+            $object->set('finishedon', $time);
+            if ($object->save()) {
+                $this->stateAfter['processed'] = true;
+                $this->stateAfter['processing'] = false;
+                $this->stateAfter['finishedon'] = $time;
+                $this->addLog($object->get('id'));
+            }
+        }
 
+        return $this->success();
+    }
 }
 
 return 'sqMessageCloseProcessor';
