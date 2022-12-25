@@ -176,6 +176,7 @@ Ext.extend(simpleQueue.grid.Items, MODx.grid.Grid, {
         },{
             header: _('simplequeue_message_processing'),
             dataIndex: 'processing',
+            renderer: simpleQueue.utils.renderBoolean,
             sortable: false,
             width: 50,
         }, {

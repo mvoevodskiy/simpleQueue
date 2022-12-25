@@ -1,5 +1,11 @@
 Changelog for simpleQueue.
 
+1.1.1-pl
+==============
+- Fix default value for finishedon
+- fix render boolean for processing field in grid
+
+
 1.1.0-pl
 ==============
 - Added new fields
